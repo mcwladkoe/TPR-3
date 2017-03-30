@@ -1,0 +1,5 @@
+tpr_3.egg-info/PKG-INFO
+tpr_3.egg-info/SOURCES.txt
+tpr_3.egg-info/dependency_links.txt
+tpr_3.egg-info/requires.txt
+tpr_3.egg-info/top_level.txt
