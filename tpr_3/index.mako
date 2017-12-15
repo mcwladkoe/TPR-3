@@ -26,10 +26,10 @@
         <div class="row">
             <div class="form-inline">
                 <div class="col-md-3 col-xs-6 col-sm-3 col-lg-3 form-group">
-                    <label for="alt" style="margin: 10px">Альтернатив</label><input id="alt" class="form-control input-sm" type="number" min="8" max="100" name="alt" onchange="this.form.submit()" value="${alternativi}"></input>
+                    <label for="alt" style="margin: 10px">Альтернатив</label><input id="alt" class="form-control input-sm" type="number" min="2" max="100" name="alt" onchange="this.form.submit()" value="${alternativi}"></input>
                 </div>
                 <div class="col-md-3 col-xs-6 col-sm-3 col-lg-3 form-group">
-                    <label for="alt" style="margin: 10px">Критериев</label><input id="kr" class="form-control input-sm" type="number" min="8" max="100" name="kr" onchange="this.form.submit()" value="${kriterii}"></input>
+                    <label for="alt" style="margin: 10px">Критериев</label><input id="kr" class="form-control input-sm" type="number" min="2" max="100" name="kr" onchange="this.form.submit()" value="${kriterii}"></input>
                 </div>
             </div>
         </div>
@@ -40,6 +40,8 @@
                 % for j in range(int(alternativi)):
                     <col class="col-xs-1 col-lg-1">
                 % endfor
+                <col class="col-xs-1 col-lg-1">
+                <col class="col-xs-1 col-lg-1">
             </colgroup>
                 <tr>
                     <td></td>
@@ -48,6 +50,8 @@
                             Альтернатива ${j+1}
                         </td>
                     % endfor
+                    <td>Не меньше(эталлонное значение)</td>
+                    <td>Значимость</td>
                 </tr>
                 % for i in range(kriterii):
                     <tr>
@@ -56,9 +60,15 @@
                         </td>
                         % for j in range(alternativi):
                             <td ${"bgcolor=green" if str(j+1) in indexes else ""}>
-                                <input class="form-control input-sm" type="number" step="0.1" min="0.1" max="0.9" name="${u'{},{}'.format(i,j)}" value="${'' if mas[i][j] == -9999999999 else mas[i][j]}" onchange="this.form.submit()"></input>
+                                <input class="form-control input-sm" type="number" step="0.01" min="0.1" max="0.9" name="${u'{},{}'.format(i,j)}" value="${'' if mas[i][j] == -9999999999 else mas[i][j]}" onchange="this.form.submit()"></input>
                             </td>
                         % endfor
+                        <td>
+                            <input class="form-control input-sm" type="number" step="0.01" min="0.1" max="0.9" name="${u'ne{}'.format(i)}" value="${'' if ne[i] == -9999999999 else ne[i]}" onchange="this.form.submit()"></input>
+                        </td>
+                        <td>
+                            <input class="form-control input-sm" type="number" step="0.01" min="0.1" max="0.9" name="${u'zn{}'.format(i)}" value="${'' if zn[i] == -9999999999 else zn[i]}" onchange="this.form.submit()"></input>
+                        </td>
                     </tr>
                 % endfor
             </table>
@@ -67,7 +77,12 @@
             <div class="col-md-5 col-xs-12 col-sm-5 col-lg-5 form-group">
                 <label style="margin: 10px" for="meth_id">Method</label>
                 <select id="meth_id" name="meth" class="bootstrap-select">
-                    <option value="maxmin">MAXMIN</option>
+                    <option value="maxmin">Максминный</option>
+                    <option value="abs_resh">Абсолютного решения</option>
+                    <option value="osn">Основного параметра</option>
+                    <option value="kompr">Компромисного решения</option>
+                    <option value="etalon">Эталонного сравнения</option>
+                    <option value="analiie">МАИ</option>
                 </select>
                 <button class="btn btn-primary" type="submit" name="smbt" value="1">Submit</button>
             </div>

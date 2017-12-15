@@ -6,6 +6,7 @@ if __name__ == '__main__':
     config = Configurator()
     config.include('pyramid_mako')
     config.add_route('index', '/')
+    config.add_static_view(name='static', path='static')
     config.add_route('export', '/export.json')
     config.scan('tpr_3.views')
     
